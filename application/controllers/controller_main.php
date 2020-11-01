@@ -1,5 +1,8 @@
 <?PHP
 
+namespace application\controllers;
+use application\views\View;
+
 class Controller_Main extends Controller
 {
     function __construct()
@@ -16,4 +19,3 @@ class Controller_Main extends Controller
 }
 
 
-?>

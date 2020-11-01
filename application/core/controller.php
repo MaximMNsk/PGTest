@@ -1,5 +1,8 @@
 <?PHP
 
+namespace application\controllers;
+use application\views\View;
+
 class Controller {
 
     public $model;
@@ -10,10 +13,9 @@ class Controller {
         $this->view = new View();
     }
 
-    // действие (action), вызываемое по умолчанию
     function action_index()
     {
-        // todo
+        
     }
 }
 
