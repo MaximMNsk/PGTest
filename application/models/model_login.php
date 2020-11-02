@@ -25,7 +25,15 @@ class Model_Login
     }
 
     function logout(){
+        $_SESSION = ['access' => 3] ;
         session_destroy();
+    }
+
+    function setWPFlag(){
+        $flag = (isset($_POST['login'])) ? 0 : 3 ;
+        $_SESSION = [
+            'access' => $flag
+        ];
     }
 
 }

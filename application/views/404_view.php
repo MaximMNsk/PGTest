@@ -2,6 +2,6 @@
 
 <div class="text-center mb-3">
     <h1>404</h1>
-
+    <h3><?= $data['referrer'] ?></h3>
     <a href="javascript:history.back()">Go back</a>
 </div>

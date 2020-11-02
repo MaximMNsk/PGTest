@@ -12,12 +12,14 @@ class Controller_Login extends Controller
 
     function action_index()
     {
+        
         $this->model->login = $_POST['login'];
         $this->model->pwd = $_POST['pwd'];
         if ( $this->model->verifyUser() ) {
             $this->model->login();
             return $this->redirectToAction();
         } else {
+            $this->model->setWPFlag();
             return $this->redirectToLogin();
         } 
     }
