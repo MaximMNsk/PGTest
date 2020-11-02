@@ -1,20 +1,23 @@
 <?php
 
 namespace application\controllers;
+
+use application\models\Model_action;
 use application\views\View;
 
-class Controller_Action
+class Controller_Action extends Controller
 {
 
     function __construct()
     {
-//        $this->model = new Model_Main();
-        $this->view = new View();
+        // $this->modelCRM = new Model_CRM;
+        $this->model = new Model_action;
+        $this->view = new View;
     }
 
     public function action_index()
     {
-        $data = [];
+        $data = $this->model->getCRMData();
         $this->view->generate('action_view.php', 'template_view.php', $data);
     }
 

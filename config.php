@@ -2,14 +2,14 @@
 define("CRM",[
     "SERVER" => "XXX-BOOK\SQLEXPRESS",
     "DB" => "crm",
-    "UID" => "XXX-BOOK\medyancev",
-    "PWD" => "",
+    "UID" => "test",
+    "PWD" => "test",
 ]);
 define("BILLING",[
     "SERVER" => "XXX-BOOK\SQLEXPRESS",
     "DB" => "billing",
-    "UID" => "XXX-BOOK\medyancev",
-    "PWD" => "",
+    "UID" => "test",
+    "PWD" => "test",
 ]);
 define("USER", [
     "LOGIN" => 'test',
