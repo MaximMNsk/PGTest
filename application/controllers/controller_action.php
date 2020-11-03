@@ -17,7 +17,8 @@ class Controller_Action extends Controller
 
     public function action_index()
     {
-        $data = $this->model->getCRMData();
+        // $data = $this->model->getCRMUser();
+        $data = $this->model->updateCRMUser(7, 'Test', 'e@ma.il');
         $this->view->generate('action_view.php', 'template_view.php', $data);
     }
 

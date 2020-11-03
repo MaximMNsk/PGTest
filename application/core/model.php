@@ -37,6 +37,7 @@ class Model
                 sqlsrv_commit($this->db);
                 return true;
             } else {
+                var_dump(sqlsrv_errors());
                 sqlsrv_rollback($this->db);
                 return false;
             } 
