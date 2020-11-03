@@ -25,7 +25,7 @@ class Model
             $res = [];
             if($statement){
                 while( $row = sqlsrv_fetch_array( $statement, SQLSRV_FETCH_ASSOC) ) {
-                    $res[] = $row;
+                    $res[] = mb_convert_encoding($row, 'utf8', 'cp1251');
                 }
                 sqlsrv_free_stmt($statement);
                 return $res;

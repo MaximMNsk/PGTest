@@ -20,6 +20,11 @@ class Controller_Action extends Controller
         $this->view->generate('action_view.php', 'template_view.php', $data);
     }
 
+    public function action_get(){
+        $data = $this->model->getCRMUser();
+        $this->view->generate('get_view.php', 'empty_view.php', $data);
+    }
+
     private function isAuth()
     {
         // if()
