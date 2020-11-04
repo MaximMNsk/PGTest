@@ -2,14 +2,14 @@
 <script src="../assets/js/main-frame.js"></script>
 
 <div class="m-5"> 
-    <form>
+    <form id="main-form">
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" id="name" name="name" disabled="true">
         </div>
         <div class="form-group">
-            <label for="surname">Surname</label>
-            <input type="text" class="form-control" id="surname" name="surname" disabled="true">
+            <label for="lastname">Last Name</label>
+            <input type="text" class="form-control" id="lastname" name="lastname" disabled="true">
         </div>
         <div class="form-group">
             <label for="email">E-mail</label>
@@ -28,7 +28,9 @@
             <input type="text" class="form-control" id="rate" name="rate" placeholder="Set Rate">
         </div>
         <input type="hidden" id="id" name="id">
-        <button class="btn btn-secondary">Submit</button>
+        <div class="alert alert-warning"></div>
+        <div class="alert alert-success"></div>
+        <button class="btn btn-secondary" id="submit">Submit</button>
     </form>
 </div>
 

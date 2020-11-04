@@ -21,12 +21,32 @@ class Controller_Action extends Controller
     }
 
     public function action_get(){
-        $data = $this->model->getCRMUser();
+        $userData = $this->model->getCRMUser();
+        $data = [
+            'success' => (!$userData) ? 0 : 1,
+            'message' => $userData,
+        ];
+        if( !$this->model->validate->auth() ) {
+            $data = [
+                'success' => 0,
+                'message' => 'Unregistered user'
+            ];
+        }
         $this->view->generate('get_view.php', 'empty_view.php', $data);
     }
 
-    private function isAuth()
-    {
-        // if()
+    function action_set(){
+        $fullValidate = $this->model->fullValidate($_POST);
+        $data = $fullValidate;
+        if( !$this->model->validate->auth() ) {
+            $data = [
+                'success' => 0,
+                'message' => 'Unregistered user'
+            ];
+        }
+        $this->view->generate('get_view.php', 'empty_view.php', $data);
     }
+
+   
+    
 }
