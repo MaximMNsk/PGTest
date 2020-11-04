@@ -27,35 +27,68 @@ class Model_action
         return $this->crm->getUser(); // false, [], [data]
     }
 
-    function updateCRMUser(int $id, string $identifyer, string $email){ // true, false
-        if( $this->crm->updateUser($id, $identifyer) != false ){
-            return $this->crm->addEmail($id, $email);
+
+    function updateUser($a){
+        $res = true;
+        if( $this->crm->prepareRequests() ){
+            if( !$this->crm->updateUser($a['id'], $a['identifier']) ){
+                $res = false;
+            }
+            if( !$this->crm->addEmail($a['id'], $a['email']) ){
+                $res = false;
+            }
+        }else{
+            $res = false;
         }
-        return false;
+        if( $this->billing->prepareRequests() ){
+            if( !$this->billing->addItem($a) ){
+                $res = false;
+            }
+        }else{
+            $res = false;
+        }
+        if( !$res ){
+            $this->crm->rollbackRequest();
+            $this->billing->rollbackRequest();
+            return false;
+        }else{
+            $this->crm->commitRequest();
+            $this->billing->commitRequest();
+            return true;
+        }
     }
 
-    function getBillingUser(){
-        return $this->billing->getData();
-    }
-    
+
     function validate(){
         return $this->validate;
     }
 
     function fullValidate(array $a){
+        $res = [];
         $valEmail = $this->validate->email($a['email']);
-        $valIdentifyer = $this->validate->identifyer($a['identifyer']);
+        $valIdentifier = $this->validate->identifier($a['identifier']);
         $valFullName = $this->validate->fullName($a['fullName']);
         $valRate = $this->validate->rate($a['rate']);
         if( $valEmail['success']==0 ) $res[] = $valEmail;
-        if( $valIdentifyer['success']==0 ) $res[] = $valIdentifyer;
-        if( $valFullName['success']==0 ) $res[] = $valFullName;
+        if( $valIdentifier['success']==0 ) $res[] = $valIdentifier;
         if( $valRate['success']==0 ) $res[] = $valRate;
-        $res[] = [
-            'success' => 1,
-            'message' => 'Successfully completed',
-        ];
         return $res;
+    }
+
+    function arrToUtf8(array $a){
+        $r = [];
+        foreach($a as $k=>$v){
+            $r[$k] = mb_convert_encoding($v, 'utf8', 'cp1251');
+        }
+        return $r;
+    }
+
+    function arrToCp1251(array $a){
+        $r = [];
+        foreach($a as $k=>$v){
+            $r[$k] = mb_convert_encoding($v, 'cp1251', 'utf8');
+        }
+        return $r;
     }
 
 }

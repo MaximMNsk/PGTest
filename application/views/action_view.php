@@ -8,16 +8,16 @@
             <input type="text" class="form-control" id="name" name="name" disabled="true">
         </div>
         <div class="form-group">
-            <label for="lastname">Last Name</label>
-            <input type="text" class="form-control" id="lastname" name="lastname" disabled="true">
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control" id="lastName" name="lastName" disabled="true">
         </div>
         <div class="form-group">
             <label for="email">E-mail</label>
             <input type="text" class="form-control" id="email" name="email" placeholder="Enter E-mail">
         </div>
         <div class="form-group">
-            <label for="identifyer">Identifyer</label>
-            <input type="text" class="form-control" id="identifyer" name="identifyer" placeholder="Enter Identifyer">
+            <label for="identifier">Identifier</label>
+            <input type="text" class="form-control" id="identifier" name="identifier" placeholder="Enter Identifier">
         </div>
         <div class="form-group">
             <label for="fullName">Full Name</label>
@@ -28,6 +28,7 @@
             <input type="text" class="form-control" id="rate" name="rate" placeholder="Set Rate">
         </div>
         <input type="hidden" id="id" name="id">
+        <div class="alert alert-danger"></div>
         <div class="alert alert-warning"></div>
         <div class="alert alert-success"></div>
         <button class="btn btn-secondary" id="submit">Submit</button>

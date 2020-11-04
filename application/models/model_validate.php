@@ -17,7 +17,7 @@ class Model_Validate
         ];
     }
 
-    function identifyer(string $str){
+    function identifier(string $str){
         $success = 1;
         $message = 'Validate success';
         $pattern = '/[a-z\-\s\.]/i';
@@ -25,7 +25,7 @@ class Model_Validate
         foreach($lettersArr as $letter){
             if( !preg_match($pattern, $letter) ){
                 $success = 0;
-                $message = 'Check an identifyer to be correct. As example - My.Login';
+                $message = 'Check an identifier to be correct. As example - My.Login';
                 }
         }
         return [
@@ -37,10 +37,10 @@ class Model_Validate
     function fullName(string $str){
         $success = 1;
         $message = 'Validate success';
-        $pattern = '/(\w)\s(\w)/m';
+        $pattern = '/(\w)(\s){1}(\w)/i';
         if( !filter_var($str, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => $pattern]]) ){
             $success = 0;
-            $message = 'Check an Full Name to be correct. As example - Иван Иванов';
+            $message = 'Check an Full Name to be correct. As example - Иван Иванов.';
         }
         return [
             'success' => $success,
@@ -53,8 +53,13 @@ class Model_Validate
         $message = 'Validate success';
         if(filter_var($str, FILTER_VALIDATE_FLOAT, ['options' => ['decimal' => '.']])){
             $parts = explode('.', $str);
-            $decimal = $parts[1];
-            if( strlen($decimal) != 2 ){
+            if( count($parts)==2 ){
+                $decimal = $parts[1];
+                if( strlen($decimal) != 2 ){
+                    $success = 0;
+                    $message = 'Wrong rate format. As example - 1000.00';
+                }
+            }else{
                 $success = 0;
                 $message = 'Wrong rate format. As example - 1000.00';
             }

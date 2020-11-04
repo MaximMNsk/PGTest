@@ -16,13 +16,13 @@ class Model_CRM extends Model
         return parent::makeRequest($dataSql, $o);
     }
 
-    function updateUser(int $id, string $identifyer){
+    function updateUser(int $id, string $identifier){
         $dataSql = 'UPDATE employee 
                     SET timekeeperIdentifier = ?
                     WHERE employeeId = ?';
         $o['q']='update';
         $o['params'] = [
-            0 => $identifyer,
+            0 => $identifier,
             1 => $id,
         ];
         return parent::makeRequest($dataSql, $o);
@@ -32,13 +32,13 @@ class Model_CRM extends Model
         $dataSql = 'INSERT INTO email (employeeId, email, [primary]) 
                     SELECT ? AS employeeId, ? AS email, ? AS [primary]
                     WHERE NOT EXISTS
-                    (SELECT employeeId, email, [primary] FROM email where employeeId=?)';
+                    ( SELECT employeeId, email, [primary] FROM email where employeeId=? )';
         $o['q']='insert';
         $o['params'] = [
-            0 => $id,
-            1 => $email,
+            0 => trim($id),
+            1 => trim($email),
             2 => 'True',
-            3 => $id,
+            3 => trim($id),
         ];
         return parent::makeRequest($dataSql, $o);
     }

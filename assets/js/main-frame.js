@@ -6,9 +6,13 @@ $(document).ready(()=>{
 });
 
 $(document).on("click", "#submit", ( evt )=>{
-    $(".alert-warning").show(100);
     evt.preventDefault();
-    
+    $.when( SetData() ).done(()=>{
+        setTimeout(()=>{
+            ClearForm();
+            GetData();
+        }, 3000);
+    });
 });
 
 
@@ -20,13 +24,13 @@ function GetData(){
         url: 'get/',
         data: $.param( [] ),
         success: function( ans ){
-            console.info(ans);
-            if(ans.success == 0){
+            d.resolve();
+            if(ans.success == 0 && ans.message==false){
+                ShowMessage('danger', 'Troubles in a server side');
+            }else if(ans.success == 0){
                 ShowMessage('warning', ans.message);
-                d.resolve;
             }else{
                 FillForm( ans );
-                d.resolve;
             }
         },
         error: function (jqXHR, exception) {
@@ -37,31 +41,71 @@ function GetData(){
     return d;
 }
 
+
+function SetData(){
+    var d = $.Deferred();
+    $.ajax({
+        dataType: "json",
+        type: "POST",
+        url: 'set/',
+        data: $.param( [
+            { name:"name", value:$("#name").val() },
+            { name:"lastName", value:$("#lastName").val() },
+            { name:"email", value:$("#email").val() },
+            { name:"identifier", value:$("#identifier").val() },
+            { name:"fullName", value:$("#fullName").val() },
+            { name:"rate", value:$("#rate").val() },
+            { name:"id", value:$("#id").val() },
+        ] ),
+        success: function( ans ){
+            d.resolve();
+            if(Array.isArray(ans)){
+                ShowMessage('warning', ans[0].message);
+            }else{
+                if(ans.success == 0){
+                    ShowMessage('warning', ans.message);
+                }else{
+                    ShowMessage('success', ans.message);
+                }
+            }
+        },
+        error: function (jqXHR, exception) {
+            AjaxError(jqXHR, exception);
+            d.reject();
+        }
+    });
+    return d; 
+}
+
+
 function ShowMessage(level, text){
     $(".alert-"+level).text(text).show(100);
     setTimeout(
         ()=>{ $(".alert-"+level).hide(100); },
-        3000
+        7000
     );
 }
 
 function FillForm( ans ){
     $("#name").val(ans.message[0].firstName);
-    $("#lastname").val(ans.message[0].lastName);
-    if(ans.message[0].email!==undefined) {
+    $("#lastName").val(ans.message[0].lastName);
+    if(ans.message[0].email != null) {
         $("#email").val(ans.message[0].email);
-        $("#email").attr("disabled", true);
+        $("#email").prop("disabled", true);
     } else {
-        $("#email").removeAttr("disabled");
+        $("#email").prop("disabled", false);
     }
-    $("#identifyer").val(ans.message[0].timekeeperIdentifier);
+    $("#identifier").val(ans.message[0].timekeeperIdentifier);
     $("#fullName").val(ans.message[0].firstName+" "+ans.message[0].lastName);
     // $("#rate").val("0");
     $("#id").val(ans.message[0].employeeId);
 }
 
-function SaveData(){
-
+function ClearForm(){
+    $("input").each((ndx, inpt)=>{
+        // console.info( $(inpt).attr("id") + " - " + $(inpt).val() );
+        $(inpt).val("");
+    });
 }
 
 
@@ -107,9 +151,5 @@ function AjaxError(jqXHR, exception){
         msg = 'Uncaught Error.\n' + jqXHR.responseText;
     }
     alert( msg + '<br><br>' + jqXHR.responseText, 3 );
-
-}
-
-function ShowAlert(){
 
 }
