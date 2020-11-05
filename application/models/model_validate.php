@@ -48,7 +48,7 @@ class Model_Validate
         ];
     }
 
-    function id(int $id){
+    function id($id){
         $success = 1;
         $message = 'Validate success';
         if( !$id ){
