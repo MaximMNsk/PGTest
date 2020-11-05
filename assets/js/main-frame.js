@@ -103,7 +103,6 @@ function FillForm( ans ){
 
 function ClearForm(){
     $("input").each((ndx, inpt)=>{
-        // console.info( $(inpt).attr("id") + " - " + $(inpt).val() );
         $(inpt).val("");
     });
 }

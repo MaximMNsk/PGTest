@@ -1,5 +1,5 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="../assets/js/main-frame.js"></script>
+<script src="/assets/js/main-frame.js"></script>
 
 <div class="m-5"> 
     <form id="main-form">
@@ -34,10 +34,3 @@
         <button class="btn btn-secondary" id="submit">Submit</button>
     </form>
 </div>
-
-<pre>
-<?php
-    // print_r($data);
-    // var_dump($data);
-?>
-</pre>

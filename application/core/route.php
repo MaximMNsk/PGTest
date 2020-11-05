@@ -1,28 +1,25 @@
 <?PHP
 
-// namespace application\router;
-// use application\controllers;
-// use application\models;
-
 class Route
 {
     static function start()
     {
-        $controller_name = 'Main';
+        $controller_name = 'Login';
         $action_name = 'index';
 
         $routes = explode('/', $_SERVER['REQUEST_URI']);
 
+        if ( !empty($routes[1]) )
+        {
+            $controller_name = $routes[1];
+        }else{
+            header("location: login/");
+        }
+
         if ( !empty($routes[2]) )
         {
-            $controller_name = $routes[2];
+            $action_name = $routes[2];
         }
-
-        if ( !empty($routes[3]) )
-        {
-            $action_name = $routes[3];
-        }
-
         $model_name = 'Model_'.$controller_name;
         $controller_name = 'Controller_'.$controller_name;
         $action_name = 'action_'.$action_name;
@@ -39,15 +36,13 @@ class Route
 
         $controller_file = strtolower($controller_name).'.php';
         $controller_path = "application/controllers/".$controller_file;
+        // echo $controller_path;
 
         if(file_exists($controller_path))
         {
             include $controller_path;
         }
-        else
-        {
-            Route::ErrorPage404();
-        }
+        
 
         $full_controller_name = 'application\\controllers\\'.$controller_name;
 
@@ -58,10 +53,7 @@ class Route
         {
             $controller->$action();
         }
-        else
-        {
-            Route::ErrorPage404();
-        }
+        
 
     }
 

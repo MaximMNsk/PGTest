@@ -67,8 +67,9 @@ class Model_action
         $res = [];
         $valEmail = $this->validate->email($a['email']);
         $valIdentifier = $this->validate->identifier($a['identifier']);
-        $valFullName = $this->validate->fullName($a['fullName']);
+        $valId = $this->validate->id($a['id']);
         $valRate = $this->validate->rate($a['rate']);
+        if( $valId['success']==0 ) $res[] = $valId;
         if( $valEmail['success']==0 ) $res[] = $valEmail;
         if( $valIdentifier['success']==0 ) $res[] = $valIdentifier;
         if( $valRate['success']==0 ) $res[] = $valRate;

@@ -13,7 +13,7 @@
     <div class="card-header">
         <?php if( isset( $_SESSION['access'] ) ): ?>
             <?php if( $_SESSION['access'] == 1 ) : ?>
-                <a href="../login/logout/">Logout</a>
+                <a href="http://<?= $_SERVER['HTTP_HOST'] ?>/login/logout/">Logout</a>
                 <?php else: ?>
                 <p></p>
             <?php endif; ?>

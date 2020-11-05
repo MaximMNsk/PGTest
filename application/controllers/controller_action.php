@@ -16,6 +16,9 @@ class Controller_Action extends Controller
 
     public function action_index()
     {
+        if( !$this->model->validate->auth() ){
+            header("location: http://".$_SERVER['HTTP_HOST']."/login/");
+        }
         $data = [];
         $this->view->generate('action_view.php', 'template_view.php', $data);
     }

@@ -1,6 +1,6 @@
 <div class="w-100">
     <div class="card mx-auto col-8 mt-5 mb-5 p-3 bg-light">
-    <form action="./login/" method="POST">
+    <form action="login/" method="POST">
         <div class="form-group">
             <label for="login">Login</label>
             <input type="text" class="form-control" id="login" name="login" aria-describedby="emailHelp" placeholder="Enter login">

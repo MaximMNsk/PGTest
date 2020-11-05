@@ -48,6 +48,19 @@ class Model_Validate
         ];
     }
 
+    function id(int $id){
+        $success = 1;
+        $message = 'Validate success';
+        if( !$id ){
+            $success = 0;
+            $message = 'Empty form detected';
+        }
+        return [
+            'success' => $success,
+            'message' => $message,
+        ];
+    }
+
     function rate(string $str){
         $success = 1;
         $message = 'Validate success';
